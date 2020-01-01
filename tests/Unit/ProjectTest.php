@@ -36,4 +36,14 @@ class ProjectTest extends TestCase
         $this->assertDatabaseHas('tasks', $project->tasks->toArray());
         $this->assertTrue($project->tasks->contains($task));
     }
+
+    /** @test */
+    function it_can_invite_user()
+    {
+        $project = factory('App\Models\Project')->create();
+        $project->invite($newMember = factory('App\User')->create());
+
+        $project->members->contains($newMember);
+        $this->assertCount(1, $project->members);
+    }
 }
