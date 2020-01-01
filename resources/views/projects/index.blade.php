@@ -18,6 +18,13 @@
                         <a href="{{ $project->path() }}" style="text-decoration:none; color:black">{{ $project->title }}</a>
                         </h3>
                         <div class="card-title text-muted mt-4">{{ $project->description }}</div>
+                        <div class="text-right">
+                            <form action="{{ $project->path() }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button onclick="return confirm('Are you sure to delete project?')" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

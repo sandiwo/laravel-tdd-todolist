@@ -6,7 +6,7 @@
             <h4>My Projects / {{ $project->title }}</h4>
         </div>
         <div class="col">
-            <a href="{{ url($project->path() . '/edit') }}" class="btn btn-primary">Edit Task</a>
+            <a href="{{ url($project->path() . '/edit') }}" class="btn btn-primary">Edit Project</a>
         </div>
     </header>
 
