@@ -1,12 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <header class="row justify-content-between mx-3 py-3">
-        <div class="col-md-11">
-            <h4>My Projects / {{ $project->title }}</h4>
-        </div>
+    <header class="row mx-3 py-3">
         <div class="col">
-            <a href="{{ url($project->path() . '/edit') }}" class="btn btn-primary">Edit Project</a>
+            <div class="float-left">
+                <h4>My Projects / {{ $project->title }}</h4>
+            </div>
+            <div class="float-right w-50">
+                <div class="float-right">
+                    
+                    <div class="row align-items-center">
+                        <div class="flex">
+                            @foreach($project->members as $member)
+                                <img src="{{ gravatar_url($member->id) }}" alt="{{ $member->name }}'s Avatars" class="rounded-circle">
+                            @endforeach       
+
+                            <img src="{{ gravatar_url($project->owner->id) }}" alt="{{ $project->owner->name }}'s Avatars" class="rounded-circle">
+                        </div>
+                        <div class="flex ml-3">
+                            <a href="{{ url($project->path() . '/edit') }}" class="btn btn-primary">Edit Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
