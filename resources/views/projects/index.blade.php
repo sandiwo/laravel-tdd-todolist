@@ -29,6 +29,7 @@
                 </div>
             </div>
         @empty
+            <p>No Projects Yet.</p>
         @endforelse
     </div>
 @endsection

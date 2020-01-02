@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Facades\Tests\Setup\ProjectFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -45,5 +46,26 @@ class ProjectTest extends TestCase
 
         $project->members->contains($newMember);
         $this->assertCount(1, $project->members);
+    }
+
+    /** @test */
+    public function it_can_accessible_project()
+    {
+        $john = factory('App\User')->create();
+
+        $project = ProjectFactory::ownedBy($john)->create();
+
+        $this->assertCount(1, $john->accessibleProject());
+
+        $sally = factory('App\User')->create();
+        $nick = factory('App\User')->create();
+
+        $sallyProject = ProjectFactory::ownedBy($sally)->create();
+        $sallyProject->invite($nick);
+
+        $this->assertCount(1, $john->accessibleProject());
+
+        $sallyProject->invite($john);
+        $this->assertCount(2, $john->accessibleProject());
     }
 }

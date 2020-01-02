@@ -41,4 +41,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Project::class, 'owner_id');
     }
+
+    public function accessibleProject()
+    {
+        return $this->projects()->where('owner_id', $this->id)
+            ->orWhereHas('members', function($query) {
+                $query->where('user_id', $this->id);
+            })
+            ->get();
+    }
 }

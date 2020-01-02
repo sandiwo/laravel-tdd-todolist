@@ -42,6 +42,17 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    function a_user_can_see_all_projects_they_have_been_invited_to_on_their_dashboard()
+    {
+        $john = $this->signIn();
+
+        $project = factory('App\Models\Project')->create();
+        $project->invite($john);
+
+        $this->get('/projects')->assertSee($project->title);
+    }
+
+    /** @test */
     public function unauthorized_user_cannot_delete_a_project()
     {
         $project = factory('App\Models\Project')->create();
